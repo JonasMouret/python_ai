@@ -1,10 +1,11 @@
 from ai import AI
 import pyjokes
 import random
+from todo import Todo, Item
 
 
 mobo = AI()
-command = ""
+todo = Todo()
 
 list_blagues = [
     "Qu'est-ce qui est jaune et qui attend ?\nUn bus qui a raté son arrêt.",
@@ -15,17 +16,68 @@ list_blagues = [
     "Une requête TCP entre dans un bar et dit :- Je veux une bière - Vous voulez une bière ? - Oui, je veux une bière - Très bien"
 ]
 
+
 def blagues():
     blague = random.choice(list_blagues)
     print(blague)
     mobo.say(blague)
-    
 
-while True and command != "au revoir":
-    command = mobo.listen()
-    print("cammande reçue : ", command)
 
+def add_todo() -> bool:
+    item = Item()
+    mobo.say("Quel est le titre de votre tâche ?")
+    try:
+        item.title = mobo.listen()
+        todo.new_item(item)
+        message = f"La tâche {item.title} a bien été ajoutée"
+        mobo.say(message)
+        return True
+    except Exception as e:
+        mobo.say("Une erreur est survenue, veuillez réessayer")
+        return False
+
+
+def list_todos():
+    if len(todo) > 0:
+        mobo.say("Voici vos tâches")
+        for item in todo:
+            mobo.say(f"{item.title} - {item.status}")
+    else:
+        mobo.say("Vous n'avez aucune tâche")
+
+
+def remove_todo():
+    mobo.say("Quel est le titre de la tâche à supprimer ?")
+    title = mobo.listen()
+    if todo.remove_item(title=title):
+        mobo.say(f"La tâche {title} a bien été supprimée")
+        return True
+    else:
+        mobo.say("Aucune tâche ne correspond à ce titre")
+        return False
+
+command = ""
+while command != "au revoir":
+    try:
+        command = mobo.listen()
+        command = command.lower()
+    except Exception as e:
+        print(e)
+        command = ""
+    # ============================= COMMANDES ============================= #
     if command == "blague":
         blagues()
+    
+    if command in {'ajouter', 'ajoute', 'ajoute une tâche', 'ajouter une tâche'}:
+        add_todo()
+        command = ""
+    
+    if command in {'liste', 'liste des tâches', 'affiche les tâches', 'affiche la liste des tâches'}:
+        list_todos()
+        command = ""
+    
+    if command in {'supprime', 'supprimer', 'supprimer une tâche', 'supprime une tâche'}:
+        remove_todo()
+        command = ""
 
 mobo.say("Mise en veille De MOBO, au revoir Monsieur MOURET")

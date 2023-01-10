@@ -8,13 +8,16 @@ class AI:
 
     def __init__(self, name=None):
         self.engine = pyttsx3.init()
+        voices = self.engine.getProperty('voices')
+        self.engine.setProperty('voice', voices[0].id)
+        name = voices[0].name
+        print(name)
         self.r = sr.Recognizer()
         self.m = sr.Microphone()
 
         if name is not None:
             self.__name = name
-        
-        print('Bonjour. Bienvenue Monsieur, MOURET. initialisation de la reconnaissance vocale complète.')
+
         self.engine.say('Bonjour. Bienvenue Monsieur MOURET, Initialisation de la reconnaissance vocale complète.')
         self.engine.runAndWait()
         with self.m as source:
@@ -37,8 +40,8 @@ class AI:
 
     def listen(self):
         print("Je vous écoute")
-        self.engine.say("Prêt à servire")
-        self.engine.runAndWait()
+        # self.engine.say("Je vous écoute")
+        # self.engine.runAndWait()
         with self.m as source:
             audio = self.r.listen(source)
         print("Bien reçu")
@@ -50,10 +53,10 @@ class AI:
             self.engine.say(sentence)
             self.engine.runAndWait()
         except Exception as e:
-            print("Je n'ai pas compris")
             self.engine.say("Je n'ai pas compris")
             self.engine.runAndWait()
-            phrase = None
+            phrase = ""
+
 
         print("Vous avez dit : ",  phrase)
         return phrase
