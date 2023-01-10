@@ -1,11 +1,15 @@
 beautifulsoup4==4.11.1
 certifi==2022.12.7
 charset-normalizer==2.1.1
+comtypes==1.1.14
 idna==3.4
 jaraco.context==4.2.0
 more-itertools==9.0.0
 PyAudio==0.2.13
+pyjokes==0.6.0
+pypiwin32==223
 pyttsx3==2.90
+pywin32==305
 requests==2.28.1
 soupsieve==2.3.2.post1
 SpeechRecognition==3.9.0
