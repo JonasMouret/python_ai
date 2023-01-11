@@ -56,15 +56,22 @@ from slugify import slugify
 
 
     
-import os
-import time
+# import os
+# import time
  
-if os.path.exists('observation_possibility.json'):
-    current_time = datetime.now().strftime("%Y-%m-%d")
-    ti_m = os.path.getmtime('observation_possibility.json')
-    m_ti = time.ctime(ti_m)
-    t_obj = time.strptime(m_ti)
-    T_stamp = time.strftime("%Y-%m-%d", t_obj)
-    print(T_stamp < current_time)
+# if os.path.exists('observation_possibility.json'):
+#     current_time = datetime.now().strftime("%Y-%m-%d")
+#     ti_m = os.path.getmtime('observation_possibility.json')
+#     m_ti = time.ctime(ti_m)
+#     t_obj = time.strptime(m_ti)
+#     T_stamp = time.strftime("%Y-%m-%d", t_obj)
+#     print(T_stamp < current_time)
     
-    print(f"The file located at observation_possibility.json  was last modified at {T_stamp}")
+#     print(f"The file located at observation_possibility.json  was last modified at {T_stamp}")
+
+with open('test.json', 'r') as f:
+    data = f.read()
+    data = json.loads(data)
+    for i in data:
+        if 'ceres' in i['full-name'].lower():
+            print(i['rise-time'])
