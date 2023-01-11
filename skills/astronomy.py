@@ -1,4 +1,3 @@
-from pyowm import OWM
 from geopy.geocoders import Nominatim
 from datetime import datetime
 import requests
