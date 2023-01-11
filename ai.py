@@ -39,9 +39,6 @@ class AI:
         self.engine.runAndWait()
 
     def listen(self):
-        print("Je vous écoute")
-        # self.engine.say("Je vous écoute")
-        # self.engine.runAndWait()
         with self.m as source:
             audio = self.r.listen(source)
         print("Bien reçu")
@@ -49,7 +46,6 @@ class AI:
         try:
             phrase = self.r.recognize_google(audio, show_all=False, language="fr_fr")
             sentence = f'Vous avez dit : {phrase}'
-            print(f"Vous avez dit : {phrase}")
             self.engine.say(sentence)
             self.engine.runAndWait()
         except Exception as e:

@@ -1,7 +1,9 @@
 from ai import AI
-import pyjokes
 import random
-from todo import Todo, Item
+from skills.todo import Todo, Item
+from skills.weather import Weather
+from skills.astronomy import Astronomy
+from datetime import datetime
 
 
 mobo = AI()
@@ -39,7 +41,7 @@ def add_todo() -> bool:
 
 def list_todos():
     if len(todo) > 0:
-        mobo.say("Voici vos tâches")
+        mobo.say("Voici vos tâches à faire :")
         for item in todo:
             mobo.say(f"{item.title} - {item.status}")
     else:
@@ -56,7 +58,18 @@ def remove_todo():
         mobo.say("Aucune tâche ne correspond à ce titre")
         return False
 
+def weather():
+    myweather = Weather()
+    mobo.say(myweather.forcast)
+
+def astronomy_update():
+    mobo.say("Initialisation de la séquance de mise à jour des objets stélaires")
+    astronomy = Astronomy()
+    mobo.say("Je vous informerais lorsque la mise à jour sera terminée")
+    mobo.say(astronomy.update_objects_observation)
+
 command = ""
+
 while command != "au revoir":
     try:
         command = mobo.listen()
@@ -65,19 +78,51 @@ while command != "au revoir":
         print(e)
         command = ""
     # ============================= COMMANDES ============================= #
-    if command == "blague":
+    if command in {"blague", "blagues", "raconte une blague", "raconte une blagues", "raconte une blague s'il te plait", "raconte une blagues s'il te plait", "raconte une blague s'il te plait MOBO", "raconte une blagues s'il te plait MOBO", "raconte une blague MOBO", "raconte une blagues MOBO"}:
         blagues()
-    
-    if command in {'ajouter', 'ajoute', 'ajoute une tâche', 'ajouter une tâche'}:
+
+    if command in {'ajoute une tâche', 'ajouter une tâche'}:
         add_todo()
         command = ""
-    
-    if command in {'liste', 'liste des tâches', 'affiche les tâches', 'affiche la liste des tâches'}:
+
+    if command in {
+        'liste des tâches',
+        'affiche les tâches',
+        'affiche la liste des tâches',
+        'liste des tâches à faire',
+        'affiche les tâches à faire',
+        'affiche la liste des tâches à faire'
+    }:
         list_todos()
         command = ""
-    
+
     if command in {'supprime', 'supprimer', 'supprimer une tâche', 'supprime une tâche'}:
         remove_todo()
         command = ""
+
+    if command in {'météo', 'temps', 'quel temps fait-il', 'quel temps fait il', 'quel temps fait-il MOBO', 'quel temps fait il MOBO'}:
+        weather()
+        command = ""
+
+    if command in {'bonjour', 'salut', 'bonjour mobo', 'salut mobo', 'bonsoir', 'bonsoir mobo'}:
+        now = datetime.now()
+        if now.hour < 17:
+            mess = "Bonjour Monsieur MOURET comment allez vous ?"
+        else:
+            mess = "Bonsoir Monsieur MOURET comment allez vous ?"
+
+        message = f'Bien le {mess}'
+        mobo.say(message)
+        list_todos()
+        weather()
+    
+    if command in {
+        'mise à jour',
+        'mise à jour des objets stellaires',
+        'mise à jour des objets stellaires MOBO',
+    }:
+        astronomy_update()
+        command = ""
+
 
 mobo.say("Mise en veille De MOBO, au revoir Monsieur MOURET")
