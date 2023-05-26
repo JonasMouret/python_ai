@@ -1,0 +1,34 @@
+[
+    {
+        "designation": "a0000001",
+        "full-name": "1 Ceres (A801 AA)",
+        "rise-time": "00:05",
+        "transit-time": "05:18",
+        "set-time": "10:31*",
+        "max-time-observable": "05:48",
+        "r-a": "12:39:26",
+        "dec": "+09 40'38\"",
+        "vmag": "8.07",
+        "helio-range-au": "2.55",
+        "topo-range-au": "2.10",
+        "object-observer-sun-deg": "105.92",
+        "object-observer-moon-deg": "20.23",
+        "galactic-latitude-deg": "72.40"
+    },
+    {
+        "designation": "a0000002",
+        "full-name": "2 Pallas (A802 FA)",
+        "rise-time": "23:20",
+        "transit-time": "23:27",
+        "set-time": "23:33",
+        "max-time-observable": "00:13",
+        "r-a": "06:47:03",
+        "dec": "-30 50'34\"",
+        "vmag": "7.65",
+        "helio-range-au": "2.15",
+        "topo-range-au": "1.42",
+        "object-observer-sun-deg": "126.29",
+        "object-observer-moon-deg": "75.76",
+        "galactic-latitude-deg": "-14.55"
+    }
+]
